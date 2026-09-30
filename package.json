@@ -1,0 +1,15 @@
+{
+  "name": "cmyk-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "NODE_OPTIONS='--max-old-space-size=512' npx concurrently -k -p \"[{name}]\" -c \"cyan.bold,magenta.bold\" \"npm run dev:engine\" \"npm run dev:client\"",
+    "dev:engine": "npm --prefix cmyk-admin-engine run dev",
+    "dev:client": "npm --prefix cmyk-admin-client run dev",
+    "lint": "npm --prefix cmyk-admin-client run lint 2>/dev/null; npm --prefix cmyk-admin-engine run lint 2>/dev/null",
+    "format": "npx --yes @biomejs/biome check --write ./cmyk-admin-client/src 2>/dev/null || true"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

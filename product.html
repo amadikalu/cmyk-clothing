@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-[#0a0a0c] text-white antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Product | CMYK Clothing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Data & Components -->
+    <script src="src/js/db.js"></script>
+    <script src="src/js/components/Header.js" defer></script>
+    <script src="src/js/components/Navigation.js" defer></script>
+    
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="relative min-h-screen pb-32 font-sans selection:bg-cyan-500 selection:text-white">
+
+    <cmyk-header></cmyk-header>
+
+    <main class="pt-20">
+        <!-- Dynamic Image Area -->
+        <div id="product-image-container" class="w-full h-80 bg-gradient-to-br flex items-center justify-center relative overflow-hidden">
+             <!-- Abstract background simulating a high-end studio shot -->
+             <div class="absolute inset-0 bg-black/20 mix-blend-overlay"></div>
+             <svg class="w-24 h-24 text-white/10 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        </div>
+
+        <div class="px-5 py-6">
+            <!-- Dynamic Details -->
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h1 id="product-title" class="text-2xl font-black tracking-tight leading-tight">Loading...</h1>
+                    <p class="text-sm text-cyan-400 mt-1 font-medium">Custom Build Available</p>
+                </div>
+                <span id="product-price" class="text-xl font-bold text-white bg-white/10 px-3 py-1 rounded-lg backdrop-blur-md">--</span>
+            </div>
+
+            <!-- Size Selector -->
+            <div class="mb-6">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-xs font-bold tracking-widest text-gray-400">SELECT SIZE</h3>
+                    <button class="text-xs text-gray-500 underline">Size Guide</button>
+                </div>
+                <div id="size-container" class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+                    <!-- Sizes injected via JS -->
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div>
+                <h3 class="text-xs font-bold tracking-widest text-gray-400 mb-2">DETAILS</h3>
+                <p id="product-desc" class="text-sm text-gray-300 leading-relaxed font-light"></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sticky Checkout Bar (Sits immediately above the bottom nav) -->
+    <div class="fixed bottom-16 left-0 right-0 p-4 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/90 to-transparent z-40">
+        <button class="w-full py-4 rounded-2xl bg-white text-black font-black text-sm tracking-widest uppercase hover:bg-gray-200 active:scale-95 transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+            Add to Lab Cart
+        </button>
+    </div>
+
+    <cmyk-nav></cmyk-nav>
+
+    <!-- Hydration Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Parse URL for product ID
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            
+            // 2. Fetch data from local catalog
+            const product = window.cmykCatalog[productId];
+
+            if (product) {
+                // 3. Hydrate DOM
+                document.getElementById('product-title').innerText = product.title;
+                document.getElementById('product-price').innerText = product.price;
+                document.getElementById('product-desc').innerText = product.description;
+                
+                // Set image placeholder gradient
+                const imgContainer = document.getElementById('product-image-container');
+                imgContainer.classList.add(...product.imageColor.split(' '));
+
+                // Generate size pills
+                const sizeContainer = document.getElementById('size-container');
+                product.sizes.forEach(size => {
+                    const btn = document.createElement('button');
+                    btn.className = "snap-start shrink-0 w-12 h-12 rounded-xl border border-white/20 text-white text-sm font-medium flex items-center justify-center hover:bg-white/10 hover:border-white transition-all";
+                    btn.innerText = size;
+                    // Simple click toggle for visual feedback
+                    btn.onclick = (e) => {
+                        Array.from(sizeContainer.children).forEach(c => {
+                            c.classList.remove('bg-white', 'text-black', 'border-white');
+                            c.classList.add('border-white/20', 'text-white');
+                        });
+                        e.target.classList.remove('border-white/20', 'text-white', 'hover:bg-white/10');
+                        e.target.classList.add('bg-white', 'text-black', 'border-white');
+                    };
+                    sizeContainer.appendChild(btn);
+                });
+            } else {
+                // Fallback for invalid URLs
+                document.getElementById('product-title').innerText = "Product Not Found";
+                document.getElementById('product-price').innerText = "$0.00";
+            }
+        });
+    </script>
+</body>
+</html>

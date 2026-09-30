@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-[#0a0a0c] text-white antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Store | CMYK Clothing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Import our custom components -->
+    <script src="src/js/components/Header.js" defer></script>
+    <script src="src/js/components/Navigation.js" defer></script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="relative min-h-screen pb-24 font-sans">
+
+    <!-- Modular Top Header -->
+    <cmyk-header></cmyk-header>
+
+    <main class="pt-20 px-4">
+        
+        <!-- Category Filters -->
+        <div class="sticky top-20 z-40 bg-[#0a0a0c]/90 backdrop-blur-md py-3 -mx-4 px-4 border-b border-white/5 mb-6">
+            <div class="flex gap-3 overflow-x-auto no-scrollbar snap-x">
+                <button class="snap-start shrink-0 px-4 py-1.5 rounded-full bg-white text-black text-xs font-bold">All Drops</button>
+                <button class="snap-start shrink-0 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-white text-xs font-medium hover:bg-white/20 transition">2-Pieces</button>
+                <button class="snap-start shrink-0 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-white text-xs font-medium hover:bg-white/20 transition">Hoodies & Joggers</button>
+                <button class="snap-start shrink-0 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-white text-xs font-medium hover:bg-white/20 transition">Headwear</button>
+            </div>
+        </div>
+
+        <!-- Section Title -->
+        <h2 class="text-xl font-black tracking-widest mb-6">LATEST RELEASES.</h2>
+
+        <!-- Product Grid -->
+        <div class="grid grid-cols-2 gap-4">
+            
+            <!-- Product Item (Routing to Product Page) -->
+            <a href="product.html?id=varsity-bw" class="block group">
+                <div class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm relative pb-16 transition-transform group-active:scale-95">
+                    <!-- Image Placeholder: Vector/Clean aesthetics -->
+                    <div class="h-48 w-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+                        <span class="text-xs text-gray-600">Varsity Image</span>
+                    </div>
+                    
+                    <div class="absolute bottom-0 left-0 right-0 p-3 bg-[#111116] border-t border-white/5">
+                        <h4 class="text-xs font-medium text-gray-300 truncate">CMYK Varsity Jacket</h4>
+                        <div class="flex justify-between items-center mt-1">
+                            <span class="text-sm font-bold text-white">$45.00</span>
+                            <button aria-label="Add to cart" class="w-6 h-6 rounded-full bg-cyan-500 text-black flex items-center justify-center">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Product Item 2 -->
+            <a href="product.html?id=premium-beanie" class="block group">
+                <div class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm relative pb-16 transition-transform group-active:scale-95">
+                    <div class="h-48 w-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+                        <span class="text-xs text-gray-600">Beanie Image</span>
+                    </div>
+                    
+                    <div class="absolute bottom-0 left-0 right-0 p-3 bg-[#111116] border-t border-white/5">
+                        <h4 class="text-xs font-medium text-gray-300 truncate">Premium Beanie</h4>
+                        <div class="flex justify-between items-center mt-1">
+                            <span class="text-sm font-bold text-white">$15.00</span>
+                            <button aria-label="Add to cart" class="w-6 h-6 rounded-full bg-cyan-500 text-black flex items-center justify-center">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+        </div>
+    </main>
+
+    <!-- Modular Bottom Navigation -->
+    <cmyk-nav></cmyk-nav>
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-[#0a0a0c] text-white antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Custom Lab | CMYK Clothing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Web Components -->
+    <script src="src/js/components/Header.js" defer></script>
+    <script src="src/js/components/Navigation.js" defer></script>
+    
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        /* Hide native radio buttons */
+        input[type="radio"].peer { display: none; }
+    </style>
+</head>
+<body class="relative min-h-screen pb-24 font-sans selection:bg-cyan-500 selection:text-white">
+
+    <cmyk-header></cmyk-header>
+
+    <main class="pt-24 px-4">
+        
+        <div class="mb-6">
+            <h2 class="text-2xl font-black tracking-widest bg-gradient-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent">THE LAB.</h2>
+            <p class="text-xs text-gray-400 mt-1">Configure your custom streetwear build.</p>
+        </div>
+
+        <!-- Wizard Progress Bar -->
+        <div class="flex gap-2 mb-8">
+            <div id="progress-1" class="h-1 flex-1 bg-cyan-400 rounded-full transition-all duration-300"></div>
+            <div id="progress-2" class="h-1 flex-1 bg-white/20 rounded-full transition-all duration-300"></div>
+            <div id="progress-3" class="h-1 flex-1 bg-white/20 rounded-full transition-all duration-300"></div>
+        </div>
+
+        <form id="custom-build-form" class="relative min-h-[400px]">
+            
+            <!-- STEP 1: Garment Type -->
+            <div id="step-1" class="absolute inset-0 transition-opacity duration-300 opacity-100 z-10">
+                <h3 class="text-sm font-bold tracking-widest text-gray-300 mb-4">1. SELECT BASE GARMENT</h3>
+                <div class="grid grid-cols-2 gap-3">
+                    
+                    <label class="cursor-pointer">
+                        <input type="radio" name="garment" value="2-piece" class="peer" checked>
+                        <div class="p-4 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm peer-checked:border-cyan-400 peer-checked:bg-cyan-900/20 transition-all text-center">
+                            <span class="block text-2xl mb-2">👕</span>
+                            <span class="text-xs font-bold">2-Piece Set</span>
+                        </div>
+                    </label>
+
+                    <label class="cursor-pointer">
+                        <input type="radio" name="garment" value="hoodie" class="peer">
+                        <div class="p-4 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm peer-checked:border-cyan-400 peer-checked:bg-cyan-900/20 transition-all text-center">
+                            <span class="block text-2xl mb-2">🧥</span>
+                            <span class="text-xs font-bold">Hoodie/Joggers</span>
+                        </div>
+                    </label>
+
+                    <label class="cursor-pointer">
+                        <input type="radio" name="garment" value="jacket" class="peer">
+                        <div class="p-4 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm peer-checked:border-cyan-400 peer-checked:bg-cyan-900/20 transition-all text-center">
+                            <span class="block text-2xl mb-2">🧥</span>
+                            <span class="text-xs font-bold">Varsity Jacket</span>
+                        </div>
+                    </label>
+
+                    <label class="cursor-pointer">
+                        <input type="radio" name="garment" value="gymwear" class="peer">
+                        <div class="p-4 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm peer-checked:border-cyan-400 peer-checked:bg-cyan-900/20 transition-all text-center">
+                            <span class="block text-2xl mb-2">💪</span>
+                            <span class="text-xs font-bold">Gym Wear</span>
+                        </div>
+                    </label>
+
+                </div>
+                <button type="button" onclick="nextStep(2)" class="w-full mt-8 py-4 rounded-2xl bg-white text-black font-black text-sm tracking-widest uppercase hover:bg-gray-200 active:scale-95 transition-all">
+                    Next: Customization
+                </button>
+            </div>
+
+            <!-- STEP 2: Finishing & Details -->
+            <div id="step-2" class="absolute inset-0 transition-opacity duration-300 opacity-0 pointer-events-none z-0">
+                <h3 class="text-sm font-bold tracking-widest text-gray-300 mb-4 flex justify-between items-center">
+                    2. FINISHING DETAILS
+                    <button type="button" onclick="prevStep(1)" class="text-[10px] text-gray-500 underline">Back</button>
+                </h3>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-2">Printing Method</label>
+                        <select name="print_method" class="w-full bg-[#111116] border border-white/10 rounded-xl p-3 text-sm text-white focus:border-cyan-400 focus:outline-none appearance-none">
+                            <option value="dtf">DTF Print (High Detail)</option>
+                            <option value="embroidery">Custom Embroidery</option>
+                            <option value="vinyl">Vinyl Plot</option>
+                            <option value="blank">No Print (Blank)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-2">Primary CMYK Colorway</label>
+                        <div class="flex gap-3">
+                            <label><input type="radio" name="color" value="cyan" class="peer"><div class="w-8 h-8 rounded-full bg-cyan-400 peer-checked:ring-2 ring-white ring-offset-2 ring-offset-[#0a0a0c] cursor-pointer"></div></label>
+                            <label><input type="radio" name="color" value="magenta" class="peer"><div class="w-8 h-8 rounded-full bg-fuchsia-500 peer-checked:ring-2 ring-white ring-offset-2 ring-offset-[#0a0a0c] cursor-pointer"></div></label>
+                            <label><input type="radio" name="color" value="yellow" class="peer"><div class="w-8 h-8 rounded-full bg-yellow-400 peer-checked:ring-2 ring-white ring-offset-2 ring-offset-[#0a0a0c] cursor-pointer"></div></label>
+                            <label><input type="radio" name="color" value="black" class="peer" checked><div class="w-8 h-8 rounded-full bg-[#111116] border border-white/20 peer-checked:ring-2 ring-white ring-offset-2 ring-offset-[#0a0a0c] cursor-pointer"></div></label>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-2">Design Notes</label>
+                        <textarea name="notes" rows="3" class="w-full bg-[#111116] border border-white/10 rounded-xl p-3 text-sm text-white focus:border-cyan-400 focus:outline-none placeholder-gray-600" placeholder="Describe fabric preferences, graphic placement, etc."></textarea>
+                    </div>
+                </div>
+
+                <button type="button" onclick="nextStep(3)" class="w-full mt-6 py-4 rounded-2xl bg-white text-black font-black text-sm tracking-widest uppercase hover:bg-gray-200 active:scale-95 transition-all">
+                    Next: Measurements
+                </button>
+            </div>
+
+            <!-- STEP 3: Measurements & Submit -->
+            <div id="step-3" class="absolute inset-0 transition-opacity duration-300 opacity-0 pointer-events-none z-0">
+                <h3 class="text-sm font-bold tracking-widest text-gray-300 mb-4 flex justify-between items-center">
+                    3. MEASUREMENTS
+                    <button type="button" onclick="prevStep(2)" class="text-[10px] text-gray-500 underline">Back</button>
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[10px] font-medium text-gray-400 mb-1">Chest (Inches)</label>
+                            <input type="number" name="chest" class="w-full bg-[#111116] border border-white/10 rounded-xl p-3 text-sm text-white focus:border-cyan-400 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-medium text-gray-400 mb-1">Waist (Inches)</label>
+                            <input type="number" name="waist" class="w-full bg-[#111116] border border-white/10 rounded-xl p-3 text-sm text-white focus:border-cyan-400 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] font-medium text-gray-400 mb-1">Contact Email/Phone</label>
+                        <input type="text" name="contact" class="w-full bg-[#111116] border border-white/10 rounded-xl p-3 text-sm text-white focus:border-cyan-400 focus:outline-none" required>
+                    </div>
+                </div>
+
+                <!-- Final Submission handled by JS for now -->
+                <button type="button" onclick="submitBuild()" class="w-full mt-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white font-black text-sm tracking-widest uppercase hover:opacity-90 active:scale-95 transition-all shadow-[0_0_20px_rgba(0,255,255,0.2)]">
+                    Send to Lab
+                </button>
+            </div>
+
+        </form>
+    </main>
+
+    <cmyk-nav></cmyk-nav>
+
+    <!-- Wizard Logic -->
+    <script>
+        function updateProgress(step) {
+            document.getElementById('progress-1').className = `h-1 flex-1 rounded-full transition-all duration-300 ${step >= 1 ? 'bg-cyan-400' : 'bg-white/20'}`;
+            document.getElementById('progress-2').className = `h-1 flex-1 rounded-full transition-all duration-300 ${step >= 2 ? 'bg-fuchsia-500' : 'bg-white/20'}`;
+            document.getElementById('progress-3').className = `h-1 flex-1 rounded-full transition-all duration-300 ${step >= 3 ? 'bg-yellow-400' : 'bg-white/20'}`;
+        }
+
+        function switchStep(from, to) {
+            const fromEl = document.getElementById(`step-${from}`);
+            const toEl = document.getElementById(`step-${to}`);
+            
+            fromEl.classList.remove('opacity-100', 'z-10');
+            fromEl.classList.add('opacity-0', 'pointer-events-none', 'z-0');
+            
+            toEl.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
+            toEl.classList.add('opacity-100', 'z-10');
+            
+            updateProgress(to);
+        }
+
+        window.nextStep = (step) => switchStep(step - 1, step);
+        window.prevStep = (step) => switchStep(step + 1, step);
+
+        window.submitBuild = () => {
+            // Serialize form data
+            const form = document.getElementById('custom-build-form');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            
+            console.log("Lab Build Data:", data);
+            
+            // Temporary success feedback
+            alert("Custom build submitted to the Lab. We will review your specs.");
+            // Reset to step 1
+            form.reset();
+            switchStep(3, 1);
+        };
+    </script>
+</body>
+</html>

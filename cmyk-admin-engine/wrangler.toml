@@ -1,0 +1,10 @@
+name = "cmyk-admin-engine"
+main = "src/index.js"
+compatibility_date = "2026-09-24"
+
+# Bind the D1 Database to the Hono Context
+[[d1_databases]]
+binding = "DB" # This is how we access it in Hono: c.env.DB
+database_name = "cmyk_orders_db"
+database_id = "pending_creation" # We will generate this ID next
+migrations_dir = "db"
