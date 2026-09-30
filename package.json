@@ -1,0 +1,15 @@
+{
+  "name": "cmyk-clothing-monorepo",
+  "private": true,
+  "workspaces": [
+    "cmyk-storefront",
+    "cmyk-admin-client",
+    "cmyk-admin-engine"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=cmyk-storefront",
+    "build:storefront": "npm run build --workspace=cmyk-storefront",
+    "build:admin": "npm run build --workspace=cmyk-admin-client",
+    "build:engine": "npm run build --workspace=cmyk-admin-engine"
+  }
+}
